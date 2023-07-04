@@ -1,0 +1,114 @@
+﻿@model IEnumerable<PracticalThirteen.Models.Employee>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2 class="text-center">Employee List</h2>
+<div class="d-flex justify-content-center">
+    <hr class="w-25"/>
+</div>
+
+<p>
+    @Html.ActionLink("Create New", "Create", string.Empty, new { @class = "btn btn-sm btn-primary" })
+</p>
+
+@if (TempData["UpdateSuccess"] != null)
+{
+    <p class="text-success toast-msg">@TempData["UpdateSuccess"]</p>
+}
+@if (TempData["AddSuccess"] != null)
+{
+    <p class="text-success toast-msg">@TempData["AddSuccess"]</p>
+}
+
+<table class="table table-striped table-hover">
+    <tr class="text-center table-dark">
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DOB)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Age)
+        </th>
+        <th>Actions</th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr class="text-center">
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DOB)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Age)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.Id }, htmlAttributes: new { @class = "btn btn-sm btn-primary" }) |
+                @Html.ActionLink("Details", "Details", new { id = item.Id }, htmlAttributes: new { @class = "btn btn-sm btn-warning" }) |
+                <button type="button" data-id="@item.Id" class="btn btn-sm btn-danger delete-Item">Delete</button>
+            </td>
+        </tr>
+    }
+
+</table>
+
+@section scripts{
+    <script>
+        $(document).ready(function () {
+            $(document).on("click",".delete-Item",function () {
+                Swal.fire({
+                    title: 'Are you sure?',
+                    text: "You won't delete this record?",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Yes, delete it!'
+                }).then((result) => {
+
+                    if (result.isConfirmed) {
+
+                        $.ajax({
+                            url: "@Url.Content("~/Employees/Delete")",
+                            method: "POST",
+                            data: { id: $(this).data("id") },
+                            success: function (data) {
+                                if (data) {
+                                    Swal.fire(
+                                        'Deleted!',
+                                        'Your record has been deleted.',
+                                        'success'
+                                    )
+                                    location.reload();
+                                }
+                            },
+                            error: function (err) {
+                                Swal.fire(
+                                    'Opps!',
+                                    'Something went wrong!',
+                                    'error'
+                                )
+                            }
+
+                        })
+
+                    }
+                })
+            })
+        })
+    </script>
+
+    <script>
+        $(document).ready(function () {
+            setTimeout(function () {
+                $('.toast-msg').delay(2000).hide(0);
+            });
+        });
+    </script>
+}

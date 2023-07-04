@@ -1,0 +1,79 @@
+﻿@model IEnumerable<PracticalThirteenTest2.ViewModel.EmployeeDesignation>
+
+@{
+    ViewBag.Title = "GetEmployees";
+}
+
+<h2 class="text-center">Get Employees Using Linq</h2>
+<div class="d-flex justify-content-center">
+    <hr class="w-25"/>
+</div>
+
+<table class="table table-striped table-hover">
+    <tr class="table-dark">
+        <th>
+            @Html.DisplayNameFor(model => model.employees.Id)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.employees.FirstName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.employees.MiddleName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.employees.LastName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.employees.DOB)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.employees.PhoneNumber)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.employees.Address)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.employees.Salary)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.designations.Designations)
+        </th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.employees.Id)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.employees.FirstName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.employees.MiddleName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.employees.LastName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.employees.DOB)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.employees.PhoneNumber)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.employees.Address)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.employees.Salary)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.designations.Designations)
+        </td>
+    </tr>
+}
+
+</table>
+
+<div>
+    @Html.ActionLink("Back to List", "Index", String.Empty, new { @class = "btn btn-sm btn-primary" })
+</div>

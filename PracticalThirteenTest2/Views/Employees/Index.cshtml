@@ -1,0 +1,106 @@
+﻿@model IEnumerable<PracticalThirteenTest2.Models.Employee>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2 class="text-center">Employees List</h2>
+<div class="d-flex justify-content-center">
+    <hr class="w-25" />
+</div>
+<p>
+    @Html.ActionLink("Designation", "Index", "Designations", string.Empty, htmlAttributes: new { @class = "btn btn-sm btn-dark" })
+    @Html.ActionLink("Create New", "Create", string.Empty, htmlAttributes: new { @class = "btn btn-sm btn-primary" })
+    @Html.ActionLink("Operation1", "GetEmployees", string.Empty, htmlAttributes: new { @class = "btn btn-sm btn-secondary" })
+    @Html.ActionLink("DesignationCount", "GetEmployeeCount", string.Empty, htmlAttributes: new { @class = "btn btn-sm btn-info" })
+</p>
+
+@if (TempData["UpdateSuccess"] != null)
+{
+    <p class="text-success toast-msg">@TempData["UpdateSuccess"]</p>
+}
+@if (TempData["AddSuccess"] != null)
+{
+    <p class="text-success toast-msg">@TempData["AddSuccess"]</p>
+}
+@if (TempData["deletedSuccess"] != null)
+{
+    <p class="text-danger toast-msg">@TempData["deletedSuccess"]</p>
+}
+<table class="table table-striped table-hover">
+    <tr class="text-center table-dark">
+
+        <th>
+            @Html.DisplayNameFor(model => model.FirstName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.MiddleName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.LastName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DOB)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PhoneNumber)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Address)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Salary)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DesignationId)
+        </th>
+        <th>Actions</th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr class="text-center">
+
+            <td>
+                @Html.DisplayFor(modelItem => item.FirstName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MiddleName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LastName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DOB)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PhoneNumber)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Address)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Salary)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DesignationId)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.Id }, htmlAttributes: new { @class = "btn btn-sm btn-primary" }) |
+                @Html.ActionLink("Details", "Details", new { id = item.Id }, htmlAttributes: new { @class = "btn btn-sm btn-info" }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.Id }, htmlAttributes: new { @class = "btn btn-sm btn-danger" })
+            </td>
+        </tr>
+    }
+
+</table>
+
+@section scripts {
+    <script>
+        $(document).ready(function () {
+            setTimeout(function () {
+                $('.toast-msg').delay(3000).hide(0);
+            });
+        });
+    </script>
+}
